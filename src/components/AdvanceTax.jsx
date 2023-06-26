@@ -105,13 +105,25 @@ const AdvanceTax = () => {
  
    setNettax(total)
    
+   if(opt==="No"){
+    setInctax(total*0.0906)
+    setEdu(0.04*realtax*2)
+    setTottax((total*0.0906)+(0.04*realtax*2))
+   
+   setAsdtax((total*0.906)+(0.04*realtax*2)-tds-relief)
+     setTaxLiability((total*0.906)+(0.04*realtax*2))
+   }
+    else{
     setInctax(realtax)
     setEdu(0.04*realtax)
-   
-   setTottax(realtax+(0.04*realtax))
+    setTottax(realtax+(0.04*realtax))
    
    setAsdtax(realtax+(0.04*realtax)-tds-relief)
      setTaxLiability(realtax+(0.04*realtax))
+   }
+    
+   
+   
   }
 
 
@@ -1009,6 +1021,47 @@ const AdvanceTax = () => {
 
 </div>)}
 
+
+<div style={{width:"90%",margin:"auto",marginTop:"60px",marginBottom:"150px"}}>
+
+  <h2>Advance Tax liability</h2>
+<table style={{width:"100%",margin:"auto",marginTop:"20px"}}>
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>Period</th>
+          <th>Advance Tax liability</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Advance tax payable upto June 15, 2023 (Cumulative)</td>
+          <td>upto June 15, 2023</td>
+          <td>₹{Number(taxLiability) * 0.15}</td>
+        </tr>
+        <tr>
+          <td>Advance tax payable upto September 15, 2023 (Cumulative)</td>
+          <td>upto September 15, 2023 (Cumulative)</td>
+          <td>₹{(Number(taxLiability) * 0.30)+(Number(taxLiability) * 0.15)}</td>
+        </tr>
+        <tr>
+          <td>Advance tax payable upto December 15, 2023 (Cumulative)</td>
+          <td>upto December 15, 2023 (Cumulative)</td>
+          <td>₹{(Number(taxLiability) * 0.30)+(Number(taxLiability) * 0.15)+(Number(taxLiability) * 0.30)}</td>
+        </tr>
+        <tr>
+          <td>Advance tax payable upto March 15, 2024 (Cumulative)</td>
+          <td>upto March 15, 2024 (Cumulative)</td>
+          <td>₹{(Number(taxLiability) * 0.30)+(Number(taxLiability) * 0.15)+(Number(taxLiability) * 0.30)+(Number(taxLiability) * 0.25)}</td>
+        </tr>
+        <tr>
+          <td>Advance tax payable upto March 31, 2024 (Cumulative)</td>
+          <td>upto March 31, 2024 (Cumulative)</td>
+          <td>₹0</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
 
 <div style={{width:"90%",margin:"auto",marginTop:"60px",marginBottom:"150px"}}>
 
