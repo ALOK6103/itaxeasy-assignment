@@ -38,15 +38,28 @@ const AdvanceTax = () => {
     
     setReadOnly((prevReadOnly) => !prevReadOnly);
 
-    // console.log("new"+capital)
+     console.log(Number(aginc))
     
     let total=Number(income)+Number(profit)+Number(houseval)+Number(capital)+Number(other)-Number(deduction)
+
+    if(aginc>5000){
+      if(aginc<=50000){
+        total=total+Number(aginc)
+      }else{
+        total=total+50000+Number(aginc-50000)/2
+      }
+      
+    }
+
+    // if(aginc>50000){
+    //   total=total+Number(aginc-50000)/2
+    // }
     
 
     let realtax=0
 
     
-    if(total>700000){
+    if(total>700000 && opt==="Yes"){
     
     if(total>300000){
       if(total<=600000){
@@ -100,28 +113,88 @@ const AdvanceTax = () => {
       realtax=realtax+(p*0.30)
       console.log(realtax)
     }
+
+    setNettax(total)
+    setInctax(realtax)
+    setEdu(Math.floor(0.04*realtax))
+    setTottax(Math.floor(realtax+(0.04*realtax)))
+   
+   setAsdtax(Math.floor(realtax+(0.04*realtax)-tds-relief))
+     setTaxLiability(Math.floor(realtax+(0.04*realtax)))
+  }
+
+
+  
+  if(total>500000 && opt==="No"){
+    
+    if(total>250000){
+      if(total<=500000){
+        let p=(total-250000)
+        realtax=realtax+(p*0.05)
+      }else{
+        let p=250000
+        realtax=realtax+(p*0.05)
+      }
+      console.log(realtax)
+     
+    }
+
+    if(total>500000){
+      if(total<=1000000){
+        let p=total-500000
+        realtax=realtax+(p*0.20)
+        console.log(p)
+      }else{
+        let p=500000
+        realtax=realtax+(p*0.20)
+      }
+      console.log(realtax)
+    }
+
+  
+
+    if(total>1000000){
+      let p=(total-1000000)
+      realtax=realtax+(p*0.30)
+      console.log(realtax)
+    }
+
+    setNettax(total)
+    setInctax(Math.floor(realtax))
+    setEdu(Math.floor(0.04*realtax))
+    setTottax(Math.floor(realtax+(0.04*realtax)))
+   
+     setAsdtax(Math.floor(realtax+(0.04*realtax)-tds-relief))
+     setTaxLiability(Math.floor(realtax+(0.04*realtax)))
+
+     if(gender==="Senior Citizen"){
+      setInctax(Math.floor(realtax-2500))
+      setEdu(Math.floor(0.04*(realtax-2500)))
+      setTottax(Math.floor((realtax-2500)+(0.04*(realtax-2500))))
+     
+     setAsdtax(Math.floor((realtax-2500)+(0.04*(realtax-2500))-tds-relief))
+       setTaxLiability(Math.floor((realtax-2500)+(0.04*(realtax-2500))))
+     }
+
+     if(gender==="Super Senior Citizen"){
+      setInctax(Math.floor(realtax-12500))
+      setEdu(Math.floor(0.04*(realtax-12500)))
+      setTottax(Math.floor((realtax-12500)+(0.04*(realtax-12500))))
+     
+     setAsdtax(Math.floor((realtax-12500)+(0.04*(realtax-12500))-tds-relief))
+       setTaxLiability(Math.floor((realtax-12500)+(0.04*(realtax-12500))))
+     }
+
+     if(resi==="Non-Resident" || resi==="Not Ordinary Resident"){
+      setInctax(Math.floor(realtax))
+      setEdu(Math.floor(0.04*realtax))
+      setTottax(Math.floor(realtax+(0.04*realtax)))
+     
+       setAsdtax(Math.floor(realtax+(0.04*realtax)-tds-relief))
+       setTaxLiability(Math.floor(realtax+(0.04*realtax)))
+     }
   }
   
- 
-   setNettax(total)
-   
-   if(opt==="No"){
-    setInctax(total*0.0906)
-    setEdu(0.04*realtax*2)
-    setTottax((total*0.0906)+(0.04*realtax*2))
-   
-   setAsdtax((total*0.906)+(0.04*realtax*2)-tds-relief)
-     setTaxLiability((total*0.906)+(0.04*realtax*2))
-   }
-    else{
-    setInctax(realtax)
-    setEdu(0.04*realtax)
-    setTottax(realtax+(0.04*realtax))
-   
-   setAsdtax(realtax+(0.04*realtax)-tds-relief)
-     setTaxLiability(realtax+(0.04*realtax))
-   }
-    
    
    
   }
@@ -533,12 +606,12 @@ const AdvanceTax = () => {
            </div>
 
            <div style={{display:"flex",gap:"20px",alignItems:"center",justifyContent:"space-between",backgroundColor:"#E9E9E9",height:"50px",paddingLeft:"10px",paddingRight:"10px",width:"100%"}}>
-           <label>Income Tax </label>
+           <label>Income Tax after relief u/s 87A</label>
            <input style={{height:"25px",backgroundColor:"#E9E9E9"}} type='number' placeholder='' value={inctax} readOnly={readOnly}  />
            </div>
 
            <div style={{display:"flex",gap:"20px",alignItems:"center",justifyContent:"space-between",height:"50px",paddingLeft:"10px",paddingRight:"10px",width:"100%"}}>
-           <label>Secondary and higher education cess</label>
+           <label>Health and Education Cess </label>
            <input style={{height:"25px",backgroundColor:"#E9E9E9"}} type='number' placeholder='' value={edu} readOnly={readOnly}  />
            </div>
 
@@ -548,7 +621,7 @@ const AdvanceTax = () => {
            </div>
 
            <div style={{display:"flex",gap:"20px",alignItems:"center",justifyContent:"space-between",height:"50px",paddingLeft:"10px",paddingRight:"10px",width:"100%"}}>
-           <label>Relief </label>
+           <label>Relief other than relief u/s 87A</label>
            <input style={{height:"25px"}} type='number' placeholder='' value={relief}  onChange={(e)=>setRelief(e.target.value)} />
            </div>
 
