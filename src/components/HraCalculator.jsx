@@ -105,7 +105,7 @@ const HraCalculator = () => {
 
   obj=JSON.parse(localStorage.getItem("hra"))||{}
   return (
-    <div style={{width:"70%",margin:"auto",border:"1px solid skyblue"}}>
+    <div style={{width:"90%",margin:"auto",border:"1px solid skyblue"}}>
       <div style={{backgroundColor:"#3B9AC6",color:"white"}}>
         <h2>HOUSE RENT ALLOWANCE </h2>
       </div>
@@ -155,12 +155,12 @@ const HraCalculator = () => {
        <div  style={{marginTop:"60px",marginBottom:"100px"}}>
        <div style={{display:"flex",gap:"20px",alignItems:"center",justifyContent:"space-between",height:"50px",paddingLeft:"10px",paddingRight:"10px"}}>
        <label>Exempted House Rent Allowance (₹) </label>
-       <input style={{width:"auto",backgroundColor:"#E9E9E9"}} type='number' value={exem} onChange={(e)=>setExem(e.target.value)} readOnly={readOnly} />
+       <input style={{width:"auto",backgroundColor:"#E9E9E9",height:"25px"}} type='number' value={exem} onChange={(e)=>setExem(e.target.value)} readOnly={readOnly} />
        </div>
 
        <div style={{display:"flex",gap:"20px",alignItems:"center",justifyContent:"space-between",height:"50px",paddingLeft:"10px",paddingRight:"10px"}}>
        <label>Taxable House Rent Allowance (₹)  </label>
-       <input style={{width:"auto",backgroundColor:"#E9E9E9"}} type='number' value={tax}  onChange={(e)=>setTax(e.target.value)} readOnly={readOnly} />
+       <input style={{width:"auto",backgroundColor:"#E9E9E9",height:"25px"}} type='number' value={tax}  onChange={(e)=>setTax(e.target.value)} readOnly={readOnly} />
        </div>
        </div>
       </form>

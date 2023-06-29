@@ -5,12 +5,14 @@ import './App.css';
 import Navbar from './components/Navbar';
 import AllRouter from './components/AllRouter';
 import Footer from './components/Footer';
+import Contacts from './components/Contacts';
 
 function App() {
   return (
     <div className="App">
      {/* <Calculator1  /> */}
      {/* <Calculator  /> */}
+     {/* <Contacts /> */}
      <Navbar />
     <AllRouter />
     <Footer />

@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom'
 
 const Navbar = () => {
   return (
+    
+
     <div>
-
-
-    <div style={{display:"flex",justifyContent:"space-between",marginTop:"20px",marginLeft:"40px",marginRight:"40px",marginBottom:"20px"}}>
+    <div style={{display:"flex",justifyContent:"space-between",marginLeft:"40px",marginTop:"20px",marginRight:"40px",marginBottom:"20px"}}>
       <div style={{color:"GrayText",display:"flex"}}>
         <img style={{width:"150px"}} src='https://upload.wikimedia.org/wikipedia/commons/1/13/Logo_of_Income_Tax_Department_India.png'  alt="logo"  />
         <div >
@@ -31,7 +31,9 @@ const Navbar = () => {
             
         </div>
     </div>
+   
     </div>
+    
   )
 }
 
