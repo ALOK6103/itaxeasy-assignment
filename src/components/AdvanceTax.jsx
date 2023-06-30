@@ -40,6 +40,7 @@ const AdvanceTax = () => {
   const [s3,setS3]=useState(0)
   const [s4,setS4]=useState(0)
   const [s5,setS5]=useState(0)
+  const [visible,setVisible]=useState(false)
 
 
 
@@ -48,7 +49,8 @@ const AdvanceTax = () => {
     e.preventDefault()
     
     setReadOnly((prevReadOnly) => !prevReadOnly);
-
+    
+   
    console.log(s1,s2,s3,s4,s5)
     
   let total=Number(income)+Number(profit)+Number(houseval)+Number(other)-Number(deduction)
@@ -86,7 +88,7 @@ const AdvanceTax = () => {
     let realtax=0
 
     
-    if(total>700000 && opt==="Yes"){
+    if(total>700000 && (opt==="Yes" || opt==="")){
 
     //  total=total
     
@@ -236,11 +238,13 @@ const AdvanceTax = () => {
     e.preventDefault()
     
     let total=Number(nettax)
-   
+    if(visible===false){
+      setVisible(true)
+    }
 
     let realtax=0
 
-    if(total>300000){
+    if(total>300000 && (opt==="Yes" || opt==="")){
 
       if(total>300000){
         if(total<=600000){
@@ -265,17 +269,28 @@ const AdvanceTax = () => {
       }
 
       if(total>900000){
-        
+       
         if(total<=1200000){
-          let p=(total-900000)
+          let p=total-900000
+          realtax=realtax+(p*0.15)
+        }else{
+          let p=300000
+          realtax=realtax+(p*0.15)
+        }
+        console.log(realtax)
+      }
+  
+      if(total>1200000){
+        if(total<=1500000){
+          let p=total-1200000
           realtax=realtax+(p*0.20)
         }else{
           let p=300000
           realtax=realtax+(p*0.20)
         }
-        console.log(realtax)   
+        console.log(realtax)
       }
-
+  
       if(total>1500000){
         let p=(total-1500000)
         realtax=realtax+(p*0.30)
@@ -285,8 +300,49 @@ const AdvanceTax = () => {
       setAsdtax(Math.ceil(realtax+(0.04*realtax))-relief-tds)
       setEdu(Math.ceil(0.04*realtax))
       setInctax(Math.ceil(realtax))
-      setTaxLiability(Math.ceil(realtax+(0.04*realtax)))
+      setTaxLiability(Math.ceil(realtax+(0.04*realtax))-relief-tds)
       
+    }
+
+    if(total>500000 && opt==="No"){
+      //let s=-ihl+houseval
+     total=total-ihl
+     if(total>250000){
+       if(total<=500000){
+         let p=(total-250000)
+         realtax=realtax+(p*0.05)
+       }else{
+         let p=250000
+         realtax=realtax+(p*0.05)
+       }
+       console.log(realtax)
+      
+     }
+ 
+     if(total>500000){
+       if(total<=1000000){
+         let p=total-500000
+         realtax=realtax+(p*0.20)
+         console.log(p)
+       }else{
+         let p=500000
+         realtax=realtax+(p*0.20)
+       }
+       console.log(realtax)
+     }
+ 
+   
+ 
+     if(total>1000000){
+       let p=(total-1000000)
+       realtax=realtax+(p*0.30)
+       console.log(realtax)
+     }
+    
+     setAsdtax(Math.ceil(realtax+(0.04*realtax))-relief-tds)
+     setEdu(Math.ceil(0.04*realtax))
+     setInctax(Math.ceil(realtax))
+     setTaxLiability(Math.ceil(realtax+(0.04*realtax))-relief-tds)
     }
   }
 
@@ -568,7 +624,7 @@ const AdvanceTax = () => {
            <div style={{display:"flex",gap:"20px",alignItems:"center",justifyContent:"space-between",height:"50px",paddingLeft:"10px",paddingRight:"10px",width:"100%"}}>
            <label>Whether opting for taxation under Section 115BAC? </label>
            <select style={{height:"25px"}} value={opt} onChange={(e)=>setOpt(e.target.value)} >
-            <option>select</option>
+            <option value="">select</option>
             <option value="Yes">Yes</option>
             <option value="No">No</option>
            </select>
@@ -1206,7 +1262,7 @@ const AdvanceTax = () => {
 
 </div>)}
 
-
+{(taxLiability> 0) &&<div>
 <div style={{ width: "90%", margin: "auto", marginTop: "60px", marginBottom: "150px", textAlign: "left" }}>
   <h2>Advance Tax liability</h2>
   <table style={{ width: "100%", margin: "auto", marginTop: "20px", borderCollapse: "collapse" }}>
@@ -1289,7 +1345,7 @@ const AdvanceTax = () => {
     </tbody>
   </table>
 </div>
-
+</div>}
     </div>
   )
 }
